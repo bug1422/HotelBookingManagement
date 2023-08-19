@@ -9,5 +9,6 @@ namespace Services.Repository
 {
     public class RoomRepository : BaseRepository<Room>
     {
+       
     }
 }
