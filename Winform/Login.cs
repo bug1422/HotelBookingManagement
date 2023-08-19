@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.Configuration;
 using Services.Repository;
 using Services.Tools;
 namespace Winform
@@ -14,10 +15,12 @@ namespace Winform
     public partial class Login : Form
     {
         AccountRepository _account;
+        RoleRepository _role;
         public Login()
         {
             InitializeComponent();
             _account = new AccountRepository();
+            _role = new RoleRepository();
         }
 
         private void signupBtn_Click(object sender, EventArgs e)
@@ -25,7 +28,7 @@ namespace Winform
             Form f = new Signup();
             this.Hide();
             f.ShowDialog();
-            this.Close();
+            this.Show();
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
@@ -38,6 +41,12 @@ namespace Winform
             }
             else
             {
+                if((username,pass) == GetAccount())
+                {
+                    Form f = new StaffMenu();
+                    f.ShowDialog();
+                    this.Close();
+                }
                 var hashed_pass = HashPassword.Hash(pass);
                 var account = _account.GetAll().FirstOrDefault(p => p.Username == username && p.Password == hashed_pass);
                 if (account is null)
@@ -46,12 +55,28 @@ namespace Winform
                 }
                 else
                 {
-                    Form f = new Home();
+                    Form f = new Form();
+                    if (account.Roleid == 
+                        _role.GetAll()
+                        .FirstOrDefault(p => p.Name == "Customer").Id
+                        ) f = new CustomerMenu();
+                    if (account.Roleid == 
+                        _role.GetAll()
+                        .FirstOrDefault(p => p.Name == "Admin" || p.Name == "Staff").Id
+                        ) f = new StaffMenu();
                     this.Hide();
                     f.ShowDialog();
                     this.Close();
                 }
             }
+        }
+        public (string username, string password) GetAccount()
+        {
+            IConfiguration _configuration;
+            _configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+            return (_configuration.GetSection("Username").Value, _configuration.GetSection("Password").Value);
         }
     }
 }

@@ -16,10 +16,5 @@ namespace Winform
         {
             InitializeComponent();
         }
-
-        private void viewProfileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

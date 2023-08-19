@@ -74,6 +74,7 @@
             txtName.Name = "txtName";
             txtName.Size = new Size(570, 36);
             txtName.TabIndex = 3;
+            txtName.Text = "thai123";
             // 
             // txtPass
             // 
@@ -83,6 +84,7 @@
             txtPass.PasswordChar = '*';
             txtPass.Size = new Size(570, 36);
             txtPass.TabIndex = 4;
+            txtPass.Text = "123456";
             // 
             // loginBtn
             // 
