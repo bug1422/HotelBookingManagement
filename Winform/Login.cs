@@ -23,6 +23,7 @@ namespace Winform
         private void signupBtn_Click(object sender, EventArgs e)
         {
             Form f = new Signup();
+            this.Hide();
             f.ShowDialog();
             this.Close();
         }
@@ -45,7 +46,10 @@ namespace Winform
                 }
                 else
                 {
-                    MessageBox.Show("Success.", "Debug");
+                    Form f = new Home();
+                    this.Hide();
+                    f.ShowDialog();
+                    this.Close();
                 }
             }
         }
