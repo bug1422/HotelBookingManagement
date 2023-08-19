@@ -47,6 +47,7 @@
             birthday = new DateTimePicker();
             label8 = new Label();
             errorProvider1 = new ErrorProvider(components);
+            show = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -67,9 +68,9 @@
             txtPass.Location = new Point(12, 308);
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
-            txtPass.Size = new Size(692, 36);
+            txtPass.Size = new Size(668, 36);
             txtPass.TabIndex = 10;
-            txtPass.Leave += Verify;
+            txtPass.Leave += passVerify;
             // 
             // txtName
             // 
@@ -78,7 +79,7 @@
             txtName.Name = "txtName";
             txtName.Size = new Size(229, 36);
             txtName.TabIndex = 9;
-            txtName.Leave += Verify;
+            txtName.Leave += nameVerify;
             // 
             // label3
             // 
@@ -127,9 +128,9 @@
             txtPhone.Location = new Point(12, 209);
             txtPhone.Name = "txtPhone";
             txtPhone.PasswordChar = '*';
-            txtPhone.Size = new Size(364, 36);
+            txtPhone.Size = new Size(317, 36);
             txtPhone.TabIndex = 15;
-            txtPhone.Leave += Verify;
+            txtPhone.Leave += phoneVerify;
             // 
             // label4
             // 
@@ -144,18 +145,17 @@
             // txtAddress
             // 
             txtAddress.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            txtAddress.Location = new Point(403, 211);
+            txtAddress.Location = new Point(344, 209);
             txtAddress.Name = "txtAddress";
-            txtAddress.PasswordChar = '*';
-            txtAddress.Size = new Size(301, 36);
+            txtAddress.Size = new Size(336, 36);
             txtAddress.TabIndex = 17;
-            txtAddress.Leave += Verify;
+            txtAddress.Leave += addressVerify;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(403, 178);
+            label5.Location = new Point(344, 176);
             label5.Name = "label5";
             label5.Size = new Size(91, 30);
             label5.TabIndex = 16;
@@ -164,17 +164,17 @@
             // txtFullname
             // 
             txtFullname.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            txtFullname.Location = new Point(270, 114);
+            txtFullname.Location = new Point(262, 116);
             txtFullname.Name = "txtFullname";
             txtFullname.Size = new Size(418, 36);
             txtFullname.TabIndex = 19;
-            txtFullname.Leave += Verify;
+            txtFullname.Leave += fullnameVerify;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(270, 81);
+            label6.Location = new Point(262, 83);
             label6.Name = "label6";
             label6.Size = new Size(106, 30);
             label6.TabIndex = 18;
@@ -184,7 +184,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.Location = new Point(727, 81);
+            label7.Location = new Point(695, 81);
             label7.Name = "label7";
             label7.Size = new Size(85, 30);
             label7.TabIndex = 20;
@@ -195,7 +195,7 @@
             gender.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             gender.FormattingEnabled = true;
             gender.Items.AddRange(new object[] { "Male", "Female", "Other" });
-            gender.Location = new Point(727, 114);
+            gender.Location = new Point(695, 114);
             gender.Name = "gender";
             gender.Size = new Size(160, 38);
             gender.TabIndex = 21;
@@ -205,17 +205,17 @@
             birthday.CustomFormat = "dd/MM/yyyy";
             birthday.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
             birthday.Format = DateTimePickerFormat.Custom;
-            birthday.Location = new Point(727, 209);
+            birthday.Location = new Point(695, 209);
             birthday.Name = "birthday";
             birthday.Size = new Size(160, 36);
             birthday.TabIndex = 22;
-            birthday.ValueChanged += Verify;
+            birthday.ValueChanged += birthdayVerify;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(727, 176);
+            label8.Location = new Point(695, 176);
             label8.Name = "label8";
             label8.Size = new Size(93, 30);
             label8.TabIndex = 23;
@@ -225,11 +225,24 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // show
+            // 
+            show.AutoSize = true;
+            show.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            show.Location = new Point(121, 278);
+            show.Name = "show";
+            show.Size = new Size(165, 29);
+            show.TabIndex = 24;
+            show.Text = "Show password";
+            show.UseVisualStyleBackColor = true;
+            show.CheckedChanged += show_CheckedChanged;
+            // 
             // Signup
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(899, 441);
+            Controls.Add(show);
             Controls.Add(label8);
             Controls.Add(birthday);
             Controls.Add(gender);
@@ -248,9 +261,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Name = "Signup";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Hotel Booking Management";
-            WindowState = FormWindowState.Maximized;
-            Leave += Verify;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -275,5 +287,6 @@
         private DateTimePicker birthday;
         private Label label8;
         private ErrorProvider errorProvider1;
+        private CheckBox show;
     }
 }

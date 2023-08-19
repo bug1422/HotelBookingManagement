@@ -92,7 +92,9 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Home";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Home";
+            WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

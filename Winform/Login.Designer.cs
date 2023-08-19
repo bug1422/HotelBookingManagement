@@ -70,7 +70,7 @@
             // txtName
             // 
             txtName.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            txtName.Location = new Point(109, 260);
+            txtName.Location = new Point(109, 145);
             txtName.Name = "txtName";
             txtName.Size = new Size(570, 36);
             txtName.TabIndex = 3;
@@ -78,7 +78,7 @@
             // txtPass
             // 
             txtPass.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            txtPass.Location = new Point(109, 155);
+            txtPass.Location = new Point(109, 250);
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
             txtPass.Size = new Size(570, 36);
