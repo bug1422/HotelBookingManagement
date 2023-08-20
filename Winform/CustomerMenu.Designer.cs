@@ -48,7 +48,7 @@
             panel5.SuspendLayout();
             SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // sidebar
             // 
             sidebar.BackColor = SystemColors.ControlLight;
             sidebar.Controls.Add(panel2);
@@ -58,7 +58,7 @@
             sidebar.Controls.Add(panel5);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
-            sidebar.Name = "flowLayoutPanel1";
+            sidebar.Name = "sidebar";
             sidebar.Size = new Size(260, 787);
             sidebar.TabIndex = 2;
             // 
@@ -175,8 +175,9 @@
             mainView.Name = "mainView";
             mainView.Size = new Size(843, 787);
             mainView.TabIndex = 3;
+            mainView.Paint += mainView_Paint;
             // 
-            // Menu
+            // CustomerMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -184,7 +185,7 @@
             ClientSize = new Size(1103, 787);
             Controls.Add(mainView);
             Controls.Add(sidebar);
-            Name = "Menu";
+            Name = "CustomerMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home";
             WindowState = FormWindowState.Maximized;
@@ -211,5 +212,5 @@
         private Button logoutBtn;
         private Button roomBtn;
         private Panel mainView;
-    }   
+    }
 }

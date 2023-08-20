@@ -57,7 +57,7 @@ namespace Winform
                     };
                     _account.Add(add);
                     MessageBox.Show("Creating successfully!", "Account created");
-                    Form f = new CustomerMenu();
+                    Form f = new CustomerMenu(add);
                     this.Hide();
                     f.ShowDialog();
                     this.Close();

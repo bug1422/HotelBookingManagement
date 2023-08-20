@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Winform
 {
@@ -20,8 +21,11 @@ namespace Winform
         private AccountRepository _account = new AccountRepository();
         Room ro = null;
         private ReviewRepository _review = new ReviewRepository();
-        public ProductDetail(int roomid)
+        private CartRepository _cart = new CartRepository();
+        Account account = new Account();
+        public ProductDetail(Account ac,int roomid)
         {
+            account = ac;
             ro = _room.GetAll().Where(r => r.Id == roomid).Include(rt => rt.RoomType).Include(h => h.Hotel).First();
             InitializeComponent();
             lbRating.Text = CalculateAverageRate(roomid) + "/5" + " " + lbRating.Text;
@@ -65,13 +69,14 @@ namespace Winform
 
         private void btnPlace_Click(object sender, EventArgs e)
         {
-            using (Cart c  = new Cart())
+            if (ro.Id == null)
             {
-                DialogResult rs = DialogResult.OK;
-                if(rs == DialogResult.OK)
-                {
-
-                }
+                MessageBox.Show("please choose product you want to place");
+            }
+            else
+            {
+                Checkout checkout = new Checkout(account, ro.Id);
+                checkout.ShowDialog();
             }
         }
 

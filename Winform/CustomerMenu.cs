@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,12 +13,19 @@ namespace Winform
 {
     public partial class CustomerMenu : Form
     {
-        Form home = new Home();
+        Account account = new Account();
+        Form home;
         Form rooms = new Rooms();
-        Form profile = new Profile();
-        Form cart = new Cart();
-        public CustomerMenu()
+        Form profile;
+        Form cart;
+        List<Carto> carts = new List<Carto>();  
+        public CustomerMenu(Account ac)
         {
+            
+            account = ac;
+            home = new Home(account);
+            profile = new Profile(account);
+            cart = new Cart(account);
             InitializeComponent();
             int width = this.Size.Width;
             int height = this.Size.Height;
@@ -105,6 +113,11 @@ namespace Winform
             mainView.Controls.Clear();
             mainView.Controls.Add(f);
             f.Show();
+        }
+
+        private void mainView_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

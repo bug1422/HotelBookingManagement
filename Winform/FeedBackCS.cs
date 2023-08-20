@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Winform
 {
-    public partial class Cart : Form
+    public partial class FeedBackCS : Form
     {
-        public Cart()
+        public FeedBackCS()
         {
             InitializeComponent();
         }

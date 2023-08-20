@@ -48,7 +48,7 @@ namespace Winform
                     this.Close();
                 }
                 var hashed_pass = HashPassword.Hash(pass);
-                var account = _account.GetAll().FirstOrDefault(p => p.Username == username && p.Password == hashed_pass);
+                var account = _account.GetAll().FirstOrDefault(p => p.Username == username && p.Password == pass);
                 if (account is null)
                 {
                     MessageBox.Show("Wrong username or password.", "Login failed");
@@ -59,7 +59,7 @@ namespace Winform
                     if (account.Roleid == 
                         _role.GetAll()
                         .FirstOrDefault(p => p.Name == "Customer").Id
-                        ) f = new CustomerMenu();
+                        ) f = new CustomerMenu(account);
                     if (account.Roleid == 
                         _role.GetAll()
                         .FirstOrDefault(p => p.Name == "Admin" || p.Name == "Staff").Id

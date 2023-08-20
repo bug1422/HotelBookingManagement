@@ -1,6 +1,6 @@
 ﻿namespace Winform
 {
-    partial class Cart
+    partial class FeedBackCS
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             SuspendLayout();
             // 
-            // Cart
+            // FeedBackCS
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1164, 730);
-            Name = "Cart";
-            Text = "Cart";
+            ClientSize = new Size(1177, 593);
+            Name = "FeedBackCS";
+            Text = "FeedBackCS";
             ResumeLayout(false);
         }
 
