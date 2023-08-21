@@ -13,14 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ScottPlot" Version="4.1.67" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.67" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Customer\Rooms.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="StaffMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

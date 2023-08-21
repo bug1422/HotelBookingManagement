@@ -43,7 +43,7 @@ namespace Winform
             {
                 if ((username, pass) == GetAccount())
                 {
-                    Form f = new StaffMenu();
+                    Form f = new StaffManagement();
                     f.Width = Screen.PrimaryScreen.Bounds.Width;
                     f.Height = Screen.PrimaryScreen.Bounds.Height;
                     f.ShowDialog();
@@ -57,20 +57,27 @@ namespace Winform
                 }
                 else
                 {
-                    Form f = new Form();
-                    if (account.Roleid ==
-                        _role.GetAll()
-                        .FirstOrDefault(p => p.Name == "Customer").Id
-                        ) f = new CustomerMenu(account);
-                    if (account.Roleid ==
-                        _role.GetAll()
-                        .FirstOrDefault(p => p.Name == "Admin" || p.Name == "Staff").Id
-                        ) f = new StaffMenu();
-                    this.Hide();
-                    f.Width = Screen.PrimaryScreen.Bounds.Width;
-                    f.Height = Screen.PrimaryScreen.Bounds.Height;
-                    f.ShowDialog();
-                    this.Close();
+                    if(account.Status == 0)
+                    {
+                        MessageBox.Show("Your account has been deactivated.", "Login failed");
+                    }
+                    else
+                    {
+                        Form f = new Form();
+                        if (account.Roleid ==
+                            _role.GetAll()
+                            .FirstOrDefault(p => p.Name == "Customer").Id
+                            ) f = new CustomerMenu(account);
+                        if (account.Roleid ==
+                            _role.GetAll()
+                            .FirstOrDefault(p => p.Name == "Admin" || p.Name == "Staff").Id
+                            ) f = new StaffManagement();
+                        this.Hide();
+                        f.Width = Screen.PrimaryScreen.Bounds.Width;
+                        f.Height = Screen.PrimaryScreen.Bounds.Height;
+                        f.ShowDialog();
+                        this.Close();
+                    }
                 }
             }
         }
