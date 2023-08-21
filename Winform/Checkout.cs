@@ -1,5 +1,4 @@
-﻿using Dropbox.Api.Users;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Services.Models;
 using Services.Repository;
 using Services.Tools;
@@ -284,7 +283,7 @@ private void removeBtn_Click(object sender, EventArgs e)
     {
         removeFromCart(ro.Id);
         roomIds.Remove(ro.Id);
-        var name = "Room " + _room.GetAll().FirstOrDefault(p => p.Id == roomId).RoomNumber;
+        var name = "Room " + _room.GetAll().FirstOrDefault(p => p.Id == ro.Id).RoomNumber;
         MessageBox.Show("Removed " + name + " from cart");
         LoadDgv();        
     }
