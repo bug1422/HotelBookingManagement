@@ -29,53 +29,57 @@
         private void InitializeComponent()
         {
             label3 = new Label();
-            txtPassword = new TextBox();
+            txtOld = new TextBox();
             label2 = new Label();
             txtUserName = new TextBox();
             btnUpdate = new Button();
             btnCancel = new Button();
             label1 = new Label();
-            txtrepassword = new TextBox();
+            txtNew = new TextBox();
             SuspendLayout();
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(329, 298);
+            label3.Location = new Point(288, 224);
             label3.Name = "label3";
-            label3.Size = new Size(70, 20);
+            label3.Size = new Size(79, 15);
             label3.TabIndex = 23;
-            label3.Text = "Password";
+            label3.Text = "Old Password";
             // 
-            // txtPassword
+            // txtOld
             // 
-            txtPassword.Location = new Point(461, 291);
-            txtPassword.Name = "txtPassword";
-            txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(360, 27);
-            txtPassword.TabIndex = 22;
+            txtOld.Location = new Point(403, 218);
+            txtOld.Margin = new Padding(3, 2, 3, 2);
+            txtOld.Name = "txtOld";
+            txtOld.PasswordChar = '*';
+            txtOld.Size = new Size(316, 23);
+            txtOld.TabIndex = 22;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(329, 219);
+            label2.Location = new Point(288, 164);
             label2.Name = "label2";
-            label2.Size = new Size(78, 20);
+            label2.Size = new Size(62, 15);
             label2.TabIndex = 21;
             label2.Text = "UserName";
             // 
             // txtUserName
             // 
-            txtUserName.Location = new Point(461, 212);
+            txtUserName.Location = new Point(403, 159);
+            txtUserName.Margin = new Padding(3, 2, 3, 2);
             txtUserName.Name = "txtUserName";
-            txtUserName.Size = new Size(360, 27);
+            txtUserName.ReadOnly = true;
+            txtUserName.Size = new Size(316, 23);
             txtUserName.TabIndex = 20;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(461, 460);
+            btnUpdate.Location = new Point(403, 345);
+            btnUpdate.Margin = new Padding(3, 2, 3, 2);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(94, 29);
+            btnUpdate.Size = new Size(82, 22);
             btnUpdate.TabIndex = 28;
             btnUpdate.Text = "Save";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -83,9 +87,10 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(727, 460);
+            btnCancel.Location = new Point(636, 345);
+            btnCancel.Margin = new Padding(3, 2, 3, 2);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(94, 29);
+            btnCancel.Size = new Size(82, 22);
             btnCancel.TabIndex = 29;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
@@ -93,33 +98,35 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(329, 378);
+            label1.Location = new Point(288, 278);
             label1.Name = "label1";
-            label1.Size = new Size(93, 20);
+            label1.Size = new Size(84, 15);
             label1.TabIndex = 31;
-            label1.Text = "RE-Password";
+            label1.Text = "New Password";
             // 
-            // txtrepassword
+            // txtNew
             // 
-            txtrepassword.Location = new Point(461, 371);
-            txtrepassword.Name = "txtrepassword";
-            txtrepassword.PasswordChar = '*';
-            txtrepassword.Size = new Size(360, 27);
-            txtrepassword.TabIndex = 30;
+            txtNew.Location = new Point(403, 278);
+            txtNew.Margin = new Padding(3, 2, 3, 2);
+            txtNew.Name = "txtNew";
+            txtNew.PasswordChar = '*';
+            txtNew.Size = new Size(316, 23);
+            txtNew.TabIndex = 30;
             // 
             // SettingAccount
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1238, 681);
+            ClientSize = new Size(1083, 511);
             Controls.Add(label1);
-            Controls.Add(txtrepassword);
+            Controls.Add(txtNew);
             Controls.Add(btnCancel);
             Controls.Add(btnUpdate);
             Controls.Add(label3);
-            Controls.Add(txtPassword);
+            Controls.Add(txtOld);
             Controls.Add(label2);
             Controls.Add(txtUserName);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "SettingAccount";
             Text = "SettingAccount";
             Load += SettingAccount_Load;
@@ -130,12 +137,12 @@
         #endregion
 
         private Label label3;
-        private TextBox txtPassword;
+        private TextBox txtOld;
         private Label label2;
         private TextBox txtUserName;
         private Button btnUpdate;
         private Button btnCancel;
         private Label label1;
-        private TextBox txtrepassword;
+        private TextBox txtNew;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Services.Models;
 using Services.Repository;
+using Services.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Dropbox.Api.Common.PathRoot;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Winform
 {
@@ -20,154 +23,199 @@ namespace Winform
         private RoomRepository _room = new RoomRepository();
         private ReviewRepository _review = new ReviewRepository();
         private TypeRoomRepository _typeRoomRepository = new TypeRoomRepository();
-        Account aa = null;
-        List<Carto> carts = new List<Carto>();
-
+        Account account = null;
+        List<int> list = new List<int>();
         public Cart(Account a)
         {
-            aa = a;
+            account = a;
             InitializeComponent();
+            LoadCart();
         }
-
-        public Cart()
+        public void scrollbar_handle()
         {
-        }
-
-        public double CalculateAverageRate(int rid)
-        {
-            List<int> rates = new List<int>();
-            List<Review> reviews = _review.GetAll().Where(re => re.Roomid == rid).ToList();
-            foreach (Review review in reviews)
-            {
-                rates.Add(review.Rating);
-            }
-            if (rates == null || rates.Count == 0)
-            {
-                return 0;
-            }
-            int sum = 0;
-            foreach (int rate in rates)
-            {
-                sum += rate;
-            }
-            double average = (double)sum / rates.Count;
-            return average;
-        }
-        private void Cart_Load(object sender, EventArgs e)
-        {
-            List<Carto> carts = _cart.getAllCart();
-            dgvCart.Rows.Clear();
-            dgvCart.Columns.Add("1", "ID");
-            dgvCart.Columns.Add("1", "Hotel");
-            dgvCart.Columns.Add("1", "Room Type");
-            dgvCart.Columns.Add("1", "Address");
-            dgvCart.Columns.Add("1", "Capacity");
-            dgvCart.Columns.Add("1", "Rating");
-            dgvCart.Columns.Add("1", "Status");
-            dgvCart.Columns.Add("1", "Price");
-            dgvCart.Columns.Add("1", "Quantity");
-            foreach (var item in carts)
-            {
-                Room r = _room.GetAll().Where(x => x.Id == item.RoomID).Include(h => h.Hotel).Include(rt => rt.RoomType).FirstOrDefault();
-                dgvCart.Rows.Add(
-                    r.Id,
-                    r.Hotel.Name,
-                    r.RoomType.Name,
-                    r.Hotel.Address,
-                    r.Capacity,
-                    CalculateAverageRate(r.Id) + "/5",
-                    (r.Quanity > 0) ? r.Quanity + " room" : "OutStock",
-                    r.Price,
-                    item.Quantity
-
-                    );
-
-            }
-            cbRT.DataSource = _typeRoomRepository.GetAll().Select(rt => rt.Name).ToList();
-
 
         }
 
-        private void btnUpdateQuantity_Click(object sender, EventArgs e)
+        public void LoadCart()
         {
-            if (string.IsNullOrEmpty(txtquantity.Text))
+            cartFlow.Controls.Clear();
+            int width = cartFlow.Width - 20;
+            int height = cartFlow.Height;
+            int x = cartFlow.Location.X, y = cartFlow.Location.Y;
+            foreach (var item in getFromCart())
             {
-                MessageBox.Show("Quantity cannot be empty");
+                int roomId = int.Parse(item.Split("-").ToList()[1]);
+                var room = _room.GetAll().Include(p => p.Hotel).FirstOrDefault(p => p.Id == roomId);
+                CheckBox select = new CheckBox();
+                select.Size = new Size(25, height / 6);
+                select.Location = new Point(x, y);
+                select.Click += (s, e) =>
+                {
+                    if (select.Checked) list.Add(roomId);
+                    else list.Remove(roomId);
+                    ListHandler();
+                };
+                Label name = new Label();
+                name.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+                name.Text = "Room " + room.RoomNumber;
+                name.Width = width / 9;
+                name.Height = height / 6;
+                name.Padding = new Padding(0, 5, 0, 5);
+                Label hotel = new Label();
+                hotel.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+                hotel.Text = room.Hotel.Name + " Hotel - " + room.Hotel.Address;
+                hotel.Location = new Point(width, height);
+                hotel.Width = width / 2;
+                hotel.Height = height / 6;
+                hotel.Padding = new Padding(0, 5, 0, 5);
+                Button detail = new Button();
+                detail.Size = new Size(width / 7, height / 7);
+                detail.Padding = new Padding(50, 5, 50, 5);
+                detail.Text = "See details";
+                detail.Click += (s, e) =>
+                {
+                    Form f = new ProductDetail(account, roomId);
+                    f.ShowDialog();
+                };
+                Label t = new Label();
+                t.Size = new Size(width / 5, height / 6);
+                cartFlow.Controls.Add(select);
+                cartFlow.Controls.Add(name);
+                cartFlow.Controls.Add(hotel);
+                cartFlow.Controls.Add(detail);
+                cartFlow.Controls.Add(t);
+                cartFlow.VerticalScroll.Enabled = true;
             }
-            else if (!int.TryParse(txtquantity.Text, out int quantity))
+
+        }
+
+        private void ListHandler()
+        {
+            if (list.Any())
             {
-                MessageBox.Show("Invalid quantity format");
-            }
-            else if (quantity < 0)
-            {
-                MessageBox.Show("Quantity must be greater than or equal to 0");
-            }
-            else if (string.IsNullOrEmpty(txtID.Text))
-            {
-                MessageBox.Show("Product ID cannot be empty");
-            }
-            else if (!int.TryParse(txtID.Text, out int productID))
-            {
-                MessageBox.Show("Invalid product ID format");
-            }
-            else if (quantity > _room.GetAll().Where(r => r.Id == productID).Select(f => f.Id).First())
-            {
-                MessageBox.Show("Quantity must < InStock of product");
+                checkout.Text = "Check out " + list.Count.ToString() + (list.Count > 0 ? " rooms" : " room");
+                remove.Text = "Remove " + list.Count.ToString() + (list.Count > 0 ? " rooms" : " room");
             }
             else
             {
-
-                _cart.UpdateQuantityCart(productID, quantity);
-                MessageBox.Show("Quantity updated successfully");
-                List<Carto> carts = _cart.getAllCart();
-                dgvCart.Rows.Clear();
-                dgvCart.Columns.Clear();
-                dgvCart.Columns.Add("1", "ID");
-                dgvCart.Columns.Add("1", "Hotel");
-                dgvCart.Columns.Add("1", "Room Type");
-                dgvCart.Columns.Add("1", "Address");
-                dgvCart.Columns.Add("1", "Capacity");
-                dgvCart.Columns.Add("1", "Rating");
-                dgvCart.Columns.Add("1", "Status");
-                dgvCart.Columns.Add("1", "Price");
-                dgvCart.Columns.Add("1", "Quantity");
-                foreach (var item in carts)
-                {
-                    Room r = _room.GetAll().Where(x => x.Id == item.RoomID).Include(h => h.Hotel).Include(rt => rt.RoomType).First();
-                    dgvCart.Rows.Add(
-                        r.Id,
-                        r.Hotel.Name,
-                        r.RoomType.Name,
-                        r.Hotel.Address,
-                        r.Capacity,
-                        CalculateAverageRate(r.Id) + "/5",
-                        (r.Quanity > 0) ? r.Quanity + " room" : "OutStock",
-                        r.Price,
-                        item.Quantity
-
-                        );
-
-                }
-                cbRT.DataSource = _typeRoomRepository.GetAll().Select(rt => rt.Name).ToList();
-
+                checkout.Text = "Check out";
+                remove.Text = "Remove";
             }
         }
 
-        private void dgvCart_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void btnCheckout_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (list.Any())
             {
-                DataGridViewRow dgv = this.dgvCart.Rows[e.RowIndex];
-                txtID.Text = dgv.Cells[0].Value.ToString();
-                txthoteil.Text = dgv.Cells[1].Value.ToString();
-                cbRT.Text = dgv.Cells[2].Value.ToString();
-                txtad.Text = dgv.Cells[3].Value.ToString();
-                txtcapacity.Text = dgv.Cells[4].Value.ToString();
-                txtrating.Text = dgv.Cells[5].Value.ToString();
-                txtstatus.Text = dgv.Cells[6].Value.ToString();
-                txtPrice.Text = dgv.Cells[7].Value.ToString();
-                txtquantity.Text = dgv.Cells[8].Value.ToString();
+                Form f = new Checkout(account, list);
+                f.ShowDialog();
+                LoadCart();
             }
+            else
+            {
+                MessageBox.Show("You haven't selected any room");
+            }
+        }
+
+        private void remove_Click(object sender, EventArgs e)
+        {
+            if (list.Any())
+            {
+                var confirmResult = MessageBox.Show("Are you sure to remove these items out of your cart?", "",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult != DialogResult.Yes) return;
+                foreach (int id in list)
+                {
+                    removeFromCart(id);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You haven't selected any room");
+            }
+            LoadCart();
+        }
+
+        private List<String> getFromCart()
+        {
+            List<string> cart = new List<string>();
+            var fileName = GetDirectory.TryGetSolutionDirectoryInfo().FullName + "\\cart.txt";
+            try
+            {
+                // Check if file already exists. If yes, delete it.     
+                if (File.Exists(fileName))
+                {
+                    // Open the stream and read it back.    
+                    using (StreamReader sr = File.OpenText(fileName))
+                    {
+                        string s = "";
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            cart.Add(s);
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Can't get from cart");
+            }
+            return cart;
+        }
+
+        private void removeFromCart(int roomId)
+        {
+            var fileName = GetDirectory.TryGetSolutionDirectoryInfo().FullName + "\\cart.txt";
+            try
+            {
+                List<string> newList = new List<string>();
+                // Check if file already exists. If yes, delete it.     
+                if (File.Exists(fileName))
+                {
+                    // Open the stream and read it back.    
+                    using (StreamReader sr = File.OpenText(fileName))
+                    {
+                        string s = "";
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            if (!s.Equals(account.Id + "-" + roomId))
+                            {
+                                newList.Add(s);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No cart found");
+                    return;
+                }
+                // Create a new file     
+                using (FileStream fs = File.Create(fileName))
+                {
+                    // Add some text to file
+                    foreach (string s in newList)
+                    {
+                        byte[] oldCart = new UTF8Encoding(true).GetBytes(s + "\n");
+                        fs.Write(oldCart, 0, oldCart.Length);
+                    }
+                }
+                MessageBox.Show("Removed from cart");
+            }
+            catch (Exception Ex)
+            {
+                Console.WriteLine(Ex.ToString());
+            }
+        }
+
+        private void orderBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void refreshBtn_Click(object sender, EventArgs e)
+        {
+            LoadCart();
         }
     }
 }

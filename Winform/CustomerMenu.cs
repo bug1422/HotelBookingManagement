@@ -15,15 +15,16 @@ namespace Winform
     {
         Account account = new Account();
         Form home;
-        Form rooms = new Rooms();
+        Form rooms;
         Form profile;
         Form cart;
-        List<Carto> carts = new List<Carto>();  
+        List<Services.Models.Cart> carts = new List<Services.Models.Cart>();
         public CustomerMenu(Account ac)
         {
-            
+
             account = ac;
             home = new Home(account);
+            rooms = new Rooms(account);
             profile = new Profile(account);
             cart = new Cart(account);
             InitializeComponent();
@@ -118,6 +119,16 @@ namespace Winform
         private void mainView_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void CustomerMenu_SizeChanged(object sender, EventArgs e)
+        {
+            if(this.WindowState != FormWindowState.Maximized)
+            {
+                this.Size = new Size(1530, 850);
+                this.FormBorderStyle = FormBorderStyle.FixedSingle;
+                CenterToScreen();
+            }
         }
     }
 }

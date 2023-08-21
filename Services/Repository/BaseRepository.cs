@@ -12,13 +12,13 @@ namespace Services.Repository
     {
         BookingManagementContext _context;
         DbSet<T> _set;
-        List<Carto> carts = new List<Carto>();
+        List<Cart> carts = new List<Cart>();
 
-        public List<Carto> getAllCart() => carts.OrderByDescending(c => c.RoomID).ToList();
+        public List<Cart> getAllCart() => carts.OrderByDescending(c => c.RoomID).ToList();
 
         public void UpdateQuantityCart(int id, int quantity)
         {
-            Carto cartToUpdate = carts.FirstOrDefault(c => c.RoomID == id);
+            Cart cartToUpdate = carts.FirstOrDefault(c => c.RoomID == id);
 
             if (cartToUpdate != null)
             {
@@ -28,7 +28,7 @@ namespace Services.Repository
 
         public void DeleteCart(int id)
         {
-            Carto cartToDelete = carts.FirstOrDefault(c => c.RoomID == id);
+            Cart cartToDelete = carts.FirstOrDefault(c => c.RoomID == id);
             if (cartToDelete != null)
             {
                 carts.Remove(cartToDelete);
@@ -39,9 +39,9 @@ namespace Services.Repository
         //{
         //    carts.Clear();
         //}
-        public bool AddCart(Carto c)
+        public bool AddCart(Cart c)
         {
-            Carto cart = getCartID(c.RoomID);
+            Cart cart = getCartID(c.RoomID);
 
             if (cart == null)
             {
@@ -90,9 +90,9 @@ namespace Services.Repository
         //    return cart;
         //}
 
-        public Carto getCartID(int id)
+        public Cart getCartID(int id)
         {
-            Carto c = carts.SingleOrDefault(project => project.RoomID == id);
+            Cart c = carts.SingleOrDefault(project => project.RoomID == id);
             return c;
         }
         public BaseRepository() 

@@ -12,251 +12,82 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Winform
 {
     public partial class Home : Form
     {
-        Account account = null;
+        private string path;
+        Account account = new Account();
+        private HotelRepository _hotel = new HotelRepository();
         private RoomRepository _room = new RoomRepository();
         private ReviewRepository _review = new ReviewRepository();
         private TypeRoomRepository _typeRoomRepository = new TypeRoomRepository();
+        private BookingRepository _booking = new BookingRepository();
         private BookingDetailRepository _BookingDetail = new BookingDetailRepository();
-        List<string> sorts = new List<string>() { "A-Z", "Z-A", "New", "Price" };
-
         public Home(Account ac)
         {
-            List<Room> rooms = _room.GetAll().ToList();
-            account = ac;
             InitializeComponent();
-            lbWelcome.Text = lbWelcome.Text + " " + account.Name;
-            cbSort.DataSource = sorts;
-            cbCate.DataSource = _typeRoomRepository.GetAll().Select(rt => rt.Name).ToList();
+            timer1.Start();
+            account = ac;
+            welcome.Text = "Welcome " + account.Username + ", ready to book?";
+            updateDgv();
+            LoadBooking();
         }
 
-        private void lbWelcome_Click(object sender, EventArgs e)
+        private void LoadBooking()
         {
-
-        }
-
-
-        public double CalculateAverageRate(int rid)
-        {
-            List<int> rates = new List<int>();
-            List<Review> reviews = _review.GetAll().Where(re => re.Roomid == rid).ToList();
-            foreach (Review review in reviews)
+            var bookings = _booking.GetAll().Where(p => p.Customerid == account.Id);
+            if (!bookings.Any())
             {
-                rates.Add(review.Rating);
-            }
-            if (rates == null || rates.Count == 0)
-            {
-                return 0;
-            }
-            int sum = 0;
-            foreach (int rate in rates)
-            {
-                sum += rate;
-            }
-            double average = (double)sum / rates.Count;
-            return average;
-        }
-        private void Home_Load(object sender, EventArgs e)
-        {
-            List<Room> rooms = _room.GetAll().Where(r => r.Quanity > 0).Include(h => h.Hotel).Include(rt => rt.RoomType).ToList();
-            dgvProduct.Columns.Add("1", "Room ID");
-            dgvProduct.Columns.Add("2", "Hotel Name");
-            dgvProduct.Columns.Add("3", "Room Type");
-            dgvProduct.Columns.Add("4", "Room Address");
-            dgvProduct.Columns.Add("5", "Room Capacity");
-            dgvProduct.Columns.Add("6", "Room Rating");
-            dgvProduct.Columns.Add("7", "Room Status");
-            dgvProduct.Columns.Add("8", "Room Price");
-            foreach (Room ro in rooms)
-            {
-                dgvProduct.Rows.Add(
-                    ro.Id,
-                    ro.Hotel.Name,
-                    ro.RoomType.Name,
-                    ro.Hotel.Address,
-                    ro.Capacity,
-                    CalculateAverageRate(ro.Id) + "/5",
-                    (ro.Quanity > 0) ? ro.Quanity + " room" : "OutStock",
-                    ro.Price
-                    );
-            }
-            cbRT.DataSource = _typeRoomRepository.GetAll().Select(rt => rt.Name).ToList();
-
-        }
-
-        private void gbfind_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnFind_Click(object sender, EventArgs e)
-        {
-            if (txtAddress.Text.Equals(""))
-            {
-                MessageBox.Show("please input address");
-            }
-            if (dtCheckin.Value > dtCheckout.Value)
-            {
-                MessageBox.Show("check in must < check out");
-            }
-            if (dtCheckin.Value < DateTime.Now)
-            {
-                MessageBox.Show("check in must is today or > today");
+                recent.Text = "You haven't book any room yet. See availble room for more information!";
             }
             else
             {
-                //lay rid có trong order id từ checkin tới check out Checkin < x < Checkout
-                List<BookingDetail> listid = _BookingDetail.GetAll().Where(b => b.Checindate >= dtCheckin.Value || b.Checkoutdate <= dtCheckout.Value).ToList();
-                List<Room> rooms = _room.GetAll().Include(h => h.Hotel).Include(rt => rt.RoomType).ToList();
-                dgvProduct.Rows.Clear();
-                dgvProduct.Columns.Clear();
-                dgvProduct.Columns.Add("1", "Room ID");
-                dgvProduct.Columns.Add("2", "Hotel Name");
-                dgvProduct.Columns.Add("3", "Room Type");
-                dgvProduct.Columns.Add("4", "Room Address");
-                dgvProduct.Columns.Add("5", "Room Capacity");
-                dgvProduct.Columns.Add("6", "Room Rating");
-                dgvProduct.Columns.Add("7", "Room Status");
-                dgvProduct.Columns.Add("8", "Room Price");
-                foreach (Room ro in rooms)
-                {
-                    if (!listid.Any(booking => booking.Roomid == ro.Id))
-                    {
-                        dgvProduct.Rows.Add(
-                        ro.Id,
-                        ro.Hotel.Name,
-                        ro.RoomType.Name,
-                        ro.Hotel.Address,
-                        ro.Capacity,
-                        CalculateAverageRate(ro.Id) + "/5",
-                        (ro.Quanity > 0) ? ro.Quanity + " room" : "OutStock",
-                        ro.Price
-                        );
-                    }
 
-                }
-                cbRT.DataSource = _typeRoomRepository.GetAll().Select(rt => rt.Name).ToList();
             }
         }
 
-        private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow dgv = this.dgvProduct.Rows[e.RowIndex];
-                txtID.Text = dgv.Cells[0].Value.ToString();
-                txthoteil.Text = dgv.Cells[1].Value.ToString();
-                cbRT.Text = dgv.Cells[2].Value.ToString();
-                txtad.Text = dgv.Cells[3].Value.ToString();
-                txtcapacity.Text = dgv.Cells[4].Value.ToString();
-                txtrating.Text = dgv.Cells[5].Value.ToString();
-                txtstatus.Text = dgv.Cells[6].Value.ToString();
-                txtPrice.Text = dgv.Cells[7].Value.ToString();
-            }
-
+            time.Text = DateTime.Now.ToLongTimeString();
+            date.Text = DateTime.Now.ToLongDateString();
         }
 
-        private void btncate_Click(object sender, EventArgs e)
+        private void clearBtn_Click(object sender, EventArgs e)
         {
-            List<Room> rooms = _room.GetAll().Where(r => r.RoomType.Name.Equals(cbCate.Text)).Include(h => h.Hotel).Include(rt => rt.RoomType).ToList();
-            dgvProduct.Rows.Clear();
-            dgvProduct.Columns.Clear();
-            dgvProduct.Columns.Add("1", "Room ID");
-            dgvProduct.Columns.Add("2", "Hotel Name");
-            dgvProduct.Columns.Add("3", "Room Type");
-            dgvProduct.Columns.Add("4", "Room Address");
-            dgvProduct.Columns.Add("5", "Room Capacity");
-            dgvProduct.Columns.Add("6", "Room Rating");
-            dgvProduct.Columns.Add("7", "Room Status");
-            dgvProduct.Columns.Add("8", "Room Price");
-            foreach (Room ro in rooms)
-            {
-                dgvProduct.Rows.Add(
-                    ro.Id,
-                    ro.Hotel.Name,
-                    ro.RoomType.Name,
-                    ro.Hotel.Address,
-                    ro.Capacity,
-                    CalculateAverageRate(ro.Id) + "/5",
-                    (ro.Quanity > 0) ? ro.Quanity + " room" : "OutStock",
-                    ro.Price
-                    );
-            }
-            cbRT.DataSource = _typeRoomRepository.GetAll().Select(rt => rt.Name).ToList();
+            searchTxt.Text = "";
         }
 
-        private void btnSort_Click(object sender, EventArgs e)
+        private void updateDgv()
         {
-
-            List<Room> rooms = new List<Room>();
-            string caseSort = cbSort.Text;
-            switch (caseSort)
+            var list = _hotel.GetAll().Include(p => p.Rooms);
+            if (!String.IsNullOrEmpty(searchTxt.Text))
             {
-                case "New":
-                    rooms = _room.GetAll().OrderByDescending(r => r.Id).Include(h => h.Hotel).Include(rt => rt.RoomType).ToList();
-                    break;
-                case "A-Z":
-                    rooms = _room.GetAll().OrderBy(r => r.Hotel.Name).Include(h => h.Hotel).Include(rt => rt.RoomType).ToList();
-                    break;
-                case "Z-A":
-                    rooms = _room.GetAll().OrderByDescending(r => r.Hotel.Name).Include(h => h.Hotel).Include(rt => rt.RoomType).ToList();
-                    break;
-                case "Price":
-                    rooms = _room.GetAll().OrderBy(r => r.Price).Include(h => h.Hotel).Include(rt => rt.RoomType).ToList();
-                    break;
-
+                list = list.Where(p =>
+                p.Name.ToLower().Contains(searchTxt.Text.ToLower()) ||
+                p.Address.ToLower().Contains(searchTxt.Text.ToLower())
+                ).Include(p => p.Rooms);
             }
-            dgvProduct.Rows.Clear();
-            dgvProduct.Columns.Clear();
-            dgvProduct.Columns.Add("1", "Room ID");
-            dgvProduct.Columns.Add("2", "Hotel Name");
-            dgvProduct.Columns.Add("3", "Room Type");
-            dgvProduct.Columns.Add("4", "Room Address");
-            dgvProduct.Columns.Add("5", "Room Capacity");
-            dgvProduct.Columns.Add("6", "Room Rating");
-            dgvProduct.Columns.Add("7", "Room Status");
-            dgvProduct.Columns.Add("8", "Room Price");
-            foreach (Room ro in rooms)
+            hotelDgv.DataSource = list.Select(p => new
             {
-                dgvProduct.Rows.Add(
-                    ro.Id,
-                    ro.Hotel.Name,
-                    ro.RoomType.Name,
-                    ro.Hotel.Address,
-                    ro.Capacity,
-                    CalculateAverageRate(ro.Id) + "/5",
-                    (ro.Quanity > 0) ? ro.Quanity + " room" : "OutStock",
-                    ro.Price
-                    );
-            }
-            cbRT.DataSource = _typeRoomRepository.GetAll().Select(rt => rt.Name).ToList();
+                Id = p.Id,
+                Name = p.Name,
+                Address = p.Address,
+                Phone = p.Phone,
+                Availble = p.Rooms.Sum(p => p.Quanity) + " rooms"
+            }).OrderBy(p => p.Name).ToList();
         }
 
-        private void btnViewDetail_Click(object sender, EventArgs e)
+        private void search_TextChanged(object sender, EventArgs e)
         {
-            if (txtID.Text.Equals(""))
-            {
-                MessageBox.Show("Please choose room you want view detail");
-            }
-            int.TryParse(txtID.Text, out int id);
-            using (ProductDetail frmpd = new ProductDetail(account, id))
-            {
-                DialogResult rs = frmpd.ShowDialog();
-                if (rs == DialogResult.OK)
-                {
-
-                }
-            }
+            updateDgv();
         }
 
-        private void btnOrder_Click(object sender, EventArgs e)
+        private void recent_KeyPress(object sender, KeyPressEventArgs e)
         {
-            OrderCS o = new OrderCS(account);
-            o.ShowDialog();
+            e.Handled = true;
         }
     }
 }

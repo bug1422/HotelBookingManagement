@@ -127,6 +127,9 @@
   <data name="profile-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\profile-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="hotel-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hotel-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="home-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\home-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,7 +142,7 @@
   <data name="cart-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cart-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hotel-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hotel-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="no-image-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no-image-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

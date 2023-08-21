@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.Models
 {
-    public class Carto
+    public class Cart
     {
         public int RoomID { get; set; }
 

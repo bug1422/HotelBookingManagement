@@ -47,10 +47,13 @@
             txtQuantity = new TextBox();
             label10 = new Label();
             pictureBox1 = new PictureBox();
-            btnPlace = new Button();
-            dgvReviews = new DataGridView();
+            button1 = new Button();
+            addBtn = new Button();
+            bookBtn = new Button();
+            reviewLabel = new Label();
+            txtRating = new Label();
+            txtReview = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvReviews).BeginInit();
             SuspendLayout();
             // 
             // txtTypeRoom
@@ -59,6 +62,7 @@
             txtTypeRoom.Name = "txtTypeRoom";
             txtTypeRoom.Size = new Size(450, 27);
             txtTypeRoom.TabIndex = 0;
+            txtTypeRoom.KeyPress += txtDesc_KeyPress;
             // 
             // label1
             // 
@@ -85,6 +89,7 @@
             txtAddress.Name = "txtAddress";
             txtAddress.Size = new Size(450, 27);
             txtAddress.TabIndex = 2;
+            txtAddress.KeyPress += txtDesc_KeyPress;
             // 
             // label3
             // 
@@ -101,6 +106,7 @@
             txtHotel.Name = "txtHotel";
             txtHotel.Size = new Size(450, 27);
             txtHotel.TabIndex = 4;
+            txtHotel.KeyPress += txtDesc_KeyPress;
             // 
             // label4
             // 
@@ -117,6 +123,7 @@
             txtRoomNumber.Name = "txtRoomNumber";
             txtRoomNumber.Size = new Size(450, 27);
             txtRoomNumber.TabIndex = 6;
+            txtRoomNumber.KeyPress += txtDesc_KeyPress;
             // 
             // label5
             // 
@@ -133,6 +140,7 @@
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(450, 27);
             txtPrice.TabIndex = 8;
+            txtPrice.KeyPress += txtDesc_KeyPress;
             // 
             // label6
             // 
@@ -149,11 +157,12 @@
             txtCapacity.Name = "txtCapacity";
             txtCapacity.Size = new Size(450, 27);
             txtCapacity.TabIndex = 10;
+            txtCapacity.KeyPress += txtDesc_KeyPress;
             // 
             // lbRating
             // 
             lbRating.AutoSize = true;
-            lbRating.Location = new Point(1093, 36);
+            lbRating.Location = new Point(896, 98);
             lbRating.Name = "lbRating";
             lbRating.Size = new Size(52, 20);
             lbRating.TabIndex = 13;
@@ -175,6 +184,7 @@
             txtDesc.Name = "txtDesc";
             txtDesc.Size = new Size(450, 128);
             txtDesc.TabIndex = 14;
+            txtDesc.KeyPress += txtDesc_KeyPress;
             // 
             // label9
             // 
@@ -191,11 +201,12 @@
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(450, 27);
             txtQuantity.TabIndex = 17;
+            txtQuantity.KeyPress += txtDesc_KeyPress;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(110, 98);
+            label10.Location = new Point(87, 98);
             label10.Name = "label10";
             label10.Size = new Size(57, 20);
             label10.TabIndex = 18;
@@ -205,34 +216,75 @@
             // 
             pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBox1.ErrorImage = null;
+            pictureBox1.InitialImage = Properties.Resources.no_image_icon;
             pictureBox1.Location = new Point(12, 136);
+            pictureBox1.MaximumSize = new Size(245, 245);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(216, 242);
+            pictureBox1.Size = new Size(245, 245);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 19;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
-            // btnPlace
+            // button1
             // 
-            btnPlace.BackColor = SystemColors.MenuHighlight;
-            btnPlace.ForeColor = SystemColors.ButtonFace;
-            btnPlace.Location = new Point(549, 746);
-            btnPlace.Name = "btnPlace";
-            btnPlace.Size = new Size(120, 29);
-            btnPlace.TabIndex = 20;
-            btnPlace.Text = "Place Room";
-            btnPlace.UseVisualStyleBackColor = false;
-            btnPlace.Click += btnPlace_Click;
+            button1.Location = new Point(12, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(132, 71);
+            button1.TabIndex = 22;
+            button1.Text = "Back";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
-            // dgvReviews
+            // addBtn
             // 
-            dgvReviews.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvReviews.Location = new Point(915, 521);
-            dgvReviews.Name = "dgvReviews";
-            dgvReviews.RowHeadersWidth = 51;
-            dgvReviews.RowTemplate.Height = 29;
-            dgvReviews.Size = new Size(300, 188);
-            dgvReviews.TabIndex = 21;
+            addBtn.Location = new Point(41, 563);
+            addBtn.Name = "addBtn";
+            addBtn.Size = new Size(142, 79);
+            addBtn.TabIndex = 104;
+            addBtn.Text = "Add to cart";
+            addBtn.UseVisualStyleBackColor = true;
+            addBtn.Click += addBtn_Click;
+            // 
+            // bookBtn
+            // 
+            bookBtn.Location = new Point(41, 433);
+            bookBtn.Name = "bookBtn";
+            bookBtn.Size = new Size(139, 78);
+            bookBtn.TabIndex = 103;
+            bookBtn.Text = "Book this room now";
+            bookBtn.UseVisualStyleBackColor = true;
+            bookBtn.Click += bookBtn_Click;
+            // 
+            // reviewLabel
+            // 
+            reviewLabel.AutoSize = true;
+            reviewLabel.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            reviewLabel.Location = new Point(896, 136);
+            reviewLabel.Name = "reviewLabel";
+            reviewLabel.Size = new Size(226, 32);
+            reviewLabel.TabIndex = 110;
+            reviewLabel.Text = "There are no review";
+            // 
+            // txtRating
+            // 
+            txtRating.AutoSize = true;
+            txtRating.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            txtRating.Location = new Point(954, 95);
+            txtRating.Name = "txtRating";
+            txtRating.Size = new Size(70, 30);
+            txtRating.TabIndex = 111;
+            txtRating.Text = "0/5 ☆";
+            // 
+            // txtReview
+            // 
+            txtReview.Location = new Point(896, 184);
+            txtReview.Multiline = true;
+            txtReview.Name = "txtReview";
+            txtReview.ScrollBars = ScrollBars.Vertical;
+            txtReview.Size = new Size(311, 518);
+            txtReview.TabIndex = 112;
+            txtReview.KeyPress += txtDesc_KeyPress;
             // 
             // ProductDetail
             // 
@@ -241,8 +293,12 @@
             AutoScroll = true;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1219, 815);
-            Controls.Add(dgvReviews);
-            Controls.Add(btnPlace);
+            Controls.Add(txtReview);
+            Controls.Add(txtRating);
+            Controls.Add(reviewLabel);
+            Controls.Add(addBtn);
+            Controls.Add(bookBtn);
+            Controls.Add(button1);
             Controls.Add(pictureBox1);
             Controls.Add(label10);
             Controls.Add(txtQuantity);
@@ -264,11 +320,9 @@
             Controls.Add(txtTypeRoom);
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "ProductDetail";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ProductDetail";
-            WindowState = FormWindowState.Maximized;
-            Load += ProductDetail_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvReviews).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -287,7 +341,6 @@
         private Label label6;
         private TextBox txtCapacity;
         protected Label label1;
-        private TextBox txtRating;
         protected Label lbRating;
         private Label label8;
         private TextBox txtDesc;
@@ -295,7 +348,11 @@
         private TextBox txtQuantity;
         private Label label10;
         private PictureBox pictureBox1;
-        private Button btnPlace;
-        private DataGridView dgvReviews;
+        private Button button1;
+        private Button addBtn;
+        private Button bookBtn;
+        private Label reviewLabel;
+        private Label txtRating;
+        private TextBox txtReview;
     }
 }

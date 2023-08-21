@@ -29,21 +29,14 @@
         private void InitializeComponent()
         {
             label3 = new Label();
-            txtID = new TextBox();
-            label2 = new Label();
-            txtquantity = new TextBox();
-            cbRT = new ComboBox();
+            txtRoomName = new TextBox();
             label11 = new Label();
             txtPrice = new TextBox();
-            label12 = new Label();
-            txtstatus = new TextBox();
             label8 = new Label();
-            txtcapacity = new TextBox();
-            label7 = new Label();
-            txtad = new TextBox();
+            txtCapacity = new TextBox();
             label6 = new Label();
             label5 = new Label();
-            txthoteil = new TextBox();
+            txtHotel = new TextBox();
             btnConfirm = new Button();
             dgvListProduct = new DataGridView();
             label1 = new Label();
@@ -52,14 +45,19 @@
             dtCheckout = new DateTimePicker();
             label9 = new Label();
             label10 = new Label();
-            label14 = new Label();
-            txtPhone = new TextBox();
-            label15 = new Label();
-            txtName = new TextBox();
             label17 = new Label();
-            label18 = new Label();
-            txtTotal = new Label();
+            totalLabel = new Label();
+            checkBox1 = new CheckBox();
+            label2 = new Label();
+            cardOwner = new TextBox();
+            payNameLabel = new Label();
+            cardNumber = new TextBox();
+            payInAdvance = new Panel();
+            txtType = new TextBox();
+            backBtn = new Button();
+            removeBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvListProduct).BeginInit();
+            payInAdvance.SuspendLayout();
             SuspendLayout();
             // 
             // label3
@@ -67,45 +65,21 @@
             label3.AutoSize = true;
             label3.Location = new Point(18, 389);
             label3.Name = "label3";
-            label3.Size = new Size(24, 20);
+            label3.Size = new Size(49, 20);
             label3.TabIndex = 75;
-            label3.Text = "ID";
+            label3.Text = "Name";
             // 
-            // txtID
+            // txtRoomName
             // 
-            txtID.Location = new Point(110, 382);
-            txtID.Name = "txtID";
-            txtID.Size = new Size(277, 27);
-            txtID.TabIndex = 74;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(449, 590);
-            label2.Name = "label2";
-            label2.Size = new Size(65, 20);
-            label2.TabIndex = 73;
-            label2.Text = "Quantity";
-            // 
-            // txtquantity
-            // 
-            txtquantity.Location = new Point(541, 583);
-            txtquantity.Name = "txtquantity";
-            txtquantity.Size = new Size(244, 27);
-            txtquantity.TabIndex = 72;
-            // 
-            // cbRT
-            // 
-            cbRT.FormattingEnabled = true;
-            cbRT.Location = new Point(110, 480);
-            cbRT.Name = "cbRT";
-            cbRT.Size = new Size(277, 28);
-            cbRT.TabIndex = 71;
+            txtRoomName.Location = new Point(110, 382);
+            txtRoomName.Name = "txtRoomName";
+            txtRoomName.Size = new Size(277, 27);
+            txtRoomName.TabIndex = 74;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(449, 538);
+            label11.Location = new Point(425, 441);
             label11.Name = "label11";
             label11.Size = new Size(41, 20);
             label11.TabIndex = 70;
@@ -113,96 +87,65 @@
             // 
             // txtPrice
             // 
-            txtPrice.Location = new Point(541, 531);
+            txtPrice.Location = new Point(517, 434);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(244, 27);
             txtPrice.TabIndex = 69;
             // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Location = new Point(449, 488);
-            label12.Name = "label12";
-            label12.Size = new Size(49, 20);
-            label12.TabIndex = 68;
-            label12.Text = "Status";
-            // 
-            // txtstatus
-            // 
-            txtstatus.Location = new Point(541, 481);
-            txtstatus.Name = "txtstatus";
-            txtstatus.Size = new Size(244, 27);
-            txtstatus.TabIndex = 67;
-            // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(18, 590);
+            label8.Location = new Point(18, 495);
             label8.Name = "label8";
             label8.Size = new Size(66, 20);
             label8.TabIndex = 64;
             label8.Text = "Capacity";
             // 
-            // txtcapacity
+            // txtCapacity
             // 
-            txtcapacity.Location = new Point(110, 583);
-            txtcapacity.Name = "txtcapacity";
-            txtcapacity.Size = new Size(277, 27);
-            txtcapacity.TabIndex = 63;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(18, 538);
-            label7.Name = "label7";
-            label7.Size = new Size(62, 20);
-            label7.TabIndex = 62;
-            label7.Text = "Address";
-            // 
-            // txtad
-            // 
-            txtad.Location = new Point(110, 531);
-            txtad.Name = "txtad";
-            txtad.Size = new Size(277, 27);
-            txtad.TabIndex = 61;
+            txtCapacity.Location = new Point(110, 488);
+            txtCapacity.Name = "txtCapacity";
+            txtCapacity.Size = new Size(277, 27);
+            txtCapacity.TabIndex = 63;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(18, 488);
+            label6.Location = new Point(425, 389);
             label6.Name = "label6";
-            label6.Size = new Size(80, 20);
+            label6.Size = new Size(84, 20);
             label6.TabIndex = 60;
-            label6.Text = "RoomType";
+            label6.Text = "Room Type";
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Location = new Point(18, 441);
             label5.Name = "label5";
-            label5.Size = new Size(50, 20);
+            label5.Size = new Size(46, 20);
             label5.TabIndex = 59;
-            label5.Text = "Hoteil";
+            label5.Text = "Hotel";
             // 
-            // txthoteil
+            // txtHotel
             // 
-            txthoteil.Location = new Point(110, 434);
-            txthoteil.Name = "txthoteil";
-            txthoteil.Size = new Size(277, 27);
-            txthoteil.TabIndex = 58;
+            txtHotel.Location = new Point(110, 434);
+            txtHotel.Name = "txtHotel";
+            txtHotel.Size = new Size(277, 27);
+            txtHotel.TabIndex = 58;
             // 
             // btnConfirm
             // 
-            btnConfirm.Location = new Point(691, 698);
+            btnConfirm.Location = new Point(590, 555);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(94, 29);
+            btnConfirm.Size = new Size(171, 65);
             btnConfirm.TabIndex = 57;
-            btnConfirm.Text = "Confirm";
+            btnConfirm.Text = "Confirm booking";
             btnConfirm.UseVisualStyleBackColor = true;
             btnConfirm.Click += btnConfirm_Click;
             // 
             // dgvListProduct
             // 
+            dgvListProduct.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListProduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvListProduct.Location = new Point(12, 12);
             dgvListProduct.Name = "dgvListProduct";
@@ -262,77 +205,123 @@
             label10.TabIndex = 83;
             label10.Text = "Reservation time";
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Location = new Point(880, 254);
-            label14.Name = "label14";
-            label14.Size = new Size(50, 20);
-            label14.TabIndex = 87;
-            label14.Text = "Phone";
-            // 
-            // txtPhone
-            // 
-            txtPhone.Location = new Point(972, 247);
-            txtPhone.Name = "txtPhone";
-            txtPhone.Size = new Size(244, 27);
-            txtPhone.TabIndex = 86;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Location = new Point(880, 209);
-            label15.Name = "label15";
-            label15.Size = new Size(49, 20);
-            label15.TabIndex = 85;
-            label15.Text = "Name";
-            // 
-            // txtName
-            // 
-            txtName.Location = new Point(972, 202);
-            txtName.Name = "txtName";
-            txtName.Size = new Size(244, 27);
-            txtName.TabIndex = 84;
-            // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(929, 356);
+            label17.Location = new Point(856, 356);
             label17.Name = "label17";
             label17.Size = new Size(327, 20);
             label17.TabIndex = 89;
             label17.Text = "-----------------------------------------------------";
             // 
-            // label18
+            // totalLabel
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(1080, 389);
-            label18.Name = "label18";
-            label18.Size = new Size(42, 20);
-            label18.TabIndex = 90;
-            label18.Text = "Total";
+            totalLabel.AutoSize = true;
+            totalLabel.Font = new Font("Segoe UI", 13F, FontStyle.Bold, GraphicsUnit.Point);
+            totalLabel.Location = new Point(812, 376);
+            totalLabel.Name = "totalLabel";
+            totalLabel.Size = new Size(134, 30);
+            totalLabel.TabIndex = 90;
+            totalLabel.Text = "Total price: ";
             // 
-            // txtTotal
+            // checkBox1
             // 
-            txtTotal.AutoSize = true;
-            txtTotal.Location = new Point(1080, 422);
-            txtTotal.Name = "txtTotal";
-            txtTotal.Size = new Size(41, 20);
-            txtTotal.TabIndex = 91;
-            txtTotal.Text = "Price";
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(881, 180);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(128, 24);
+            checkBox1.TabIndex = 92;
+            checkBox1.Text = "Pay in advance";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(31, 85);
+            label2.Name = "label2";
+            label2.Size = new Size(87, 20);
+            label2.TabIndex = 96;
+            label2.Text = "Card Owner";
+            // 
+            // cardOwner
+            // 
+            cardOwner.Location = new Point(148, 78);
+            cardOwner.Name = "cardOwner";
+            cardOwner.PlaceholderText = "NGUYEN VAN A";
+            cardOwner.Size = new Size(244, 27);
+            cardOwner.TabIndex = 95;
+            cardOwner.TextChanged += textBox1_TextChanged;
+            // 
+            // payNameLabel
+            // 
+            payNameLabel.AutoSize = true;
+            payNameLabel.Location = new Point(31, 33);
+            payNameLabel.Name = "payNameLabel";
+            payNameLabel.Size = new Size(95, 20);
+            payNameLabel.TabIndex = 94;
+            payNameLabel.Text = "Card number";
+            // 
+            // cardNumber
+            // 
+            cardNumber.Location = new Point(148, 33);
+            cardNumber.Name = "cardNumber";
+            cardNumber.PlaceholderText = "1234-5678-7890-1011";
+            cardNumber.Size = new Size(244, 27);
+            cardNumber.TabIndex = 93;
+            cardNumber.TextChanged += cardNumber_TextChanged;
+            cardNumber.KeyDown += cardNumber_KeyDown;
+            // 
+            // payInAdvance
+            // 
+            payInAdvance.Controls.Add(cardOwner);
+            payInAdvance.Controls.Add(label2);
+            payInAdvance.Controls.Add(cardNumber);
+            payInAdvance.Controls.Add(payNameLabel);
+            payInAdvance.Location = new Point(825, 210);
+            payInAdvance.Name = "payInAdvance";
+            payInAdvance.Size = new Size(461, 133);
+            payInAdvance.TabIndex = 97;
+            // 
+            // txtType
+            // 
+            txtType.Location = new Point(517, 382);
+            txtType.Name = "txtType";
+            txtType.Size = new Size(244, 27);
+            txtType.TabIndex = 98;
+            // 
+            // backBtn
+            // 
+            backBtn.Location = new Point(12, 555);
+            backBtn.Name = "backBtn";
+            backBtn.Size = new Size(171, 65);
+            backBtn.TabIndex = 99;
+            backBtn.Text = "Back";
+            backBtn.UseVisualStyleBackColor = true;
+            backBtn.Click += backBtn_Click;
+            // 
+            // removeBtn
+            // 
+            removeBtn.Location = new Point(295, 555);
+            removeBtn.Name = "removeBtn";
+            removeBtn.Size = new Size(171, 65);
+            removeBtn.TabIndex = 100;
+            removeBtn.Text = "Remove room from list";
+            removeBtn.UseVisualStyleBackColor = true;
+            removeBtn.Click += removeBtn_Click;
             // 
             // Checkout
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1347, 788);
-            Controls.Add(txtTotal);
-            Controls.Add(label18);
+            ClientSize = new Size(1347, 632);
+            Controls.Add(removeBtn);
+            Controls.Add(backBtn);
+            Controls.Add(txtType);
+            Controls.Add(payInAdvance);
+            Controls.Add(checkBox1);
+            Controls.Add(totalLabel);
             Controls.Add(label17);
-            Controls.Add(label14);
-            Controls.Add(txtPhone);
-            Controls.Add(label15);
-            Controls.Add(txtName);
             Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(dtCheckout);
@@ -340,27 +329,21 @@
             Controls.Add(label1);
             Controls.Add(label4);
             Controls.Add(label3);
-            Controls.Add(txtID);
-            Controls.Add(label2);
-            Controls.Add(txtquantity);
-            Controls.Add(cbRT);
+            Controls.Add(txtRoomName);
             Controls.Add(label11);
             Controls.Add(txtPrice);
-            Controls.Add(label12);
-            Controls.Add(txtstatus);
             Controls.Add(label8);
-            Controls.Add(txtcapacity);
-            Controls.Add(label7);
-            Controls.Add(txtad);
+            Controls.Add(txtCapacity);
             Controls.Add(label6);
             Controls.Add(label5);
-            Controls.Add(txthoteil);
+            Controls.Add(txtHotel);
             Controls.Add(btnConfirm);
             Controls.Add(dgvListProduct);
             Name = "Checkout";
             Text = "Checkout";
-            Load += Checkout_Load;
             ((System.ComponentModel.ISupportInitialize)dgvListProduct).EndInit();
+            payInAdvance.ResumeLayout(false);
+            payInAdvance.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -368,21 +351,14 @@
         #endregion
 
         private Label label3;
-        private TextBox txtID;
-        private Label label2;
-        private TextBox txtquantity;
-        private ComboBox cbRT;
+        private TextBox txtRoomName;
         private Label label11;
         private TextBox txtPrice;
-        private Label label12;
-        private TextBox txtstatus;
         private Label label8;
-        private TextBox txtcapacity;
-        private Label label7;
-        private TextBox txtad;
+        private TextBox txtCapacity;
         private Label label6;
         private Label label5;
-        private TextBox txthoteil;
+        private TextBox txtHotel;
         private Button btnConfirm;
         private DataGridView dgvListProduct;
         private Label label1;
@@ -396,7 +372,16 @@
         private Label label15;
         private TextBox txtName;
         private Label label17;
-        private Label label18;
+        private Label totalLabel;
         private Label txtTotal;
+        private CheckBox checkBox1;
+        private Label label2;
+        private TextBox cardOwner;
+        private Label payNameLabel;
+        private TextBox cardNumber;
+        private Panel payInAdvance;
+        private TextBox txtType;
+        private Button backBtn;
+        private Button removeBtn;
     }
 }

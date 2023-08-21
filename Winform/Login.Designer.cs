@@ -41,9 +41,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 22F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(158, 36);
+            label1.Location = new Point(138, 27);
             label1.Name = "label1";
-            label1.Size = new Size(470, 50);
+            label1.Size = new Size(382, 41);
             label1.TabIndex = 0;
             label1.Text = "HOTEL BOOKING SYSTEM";
             // 
@@ -51,9 +51,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(109, 112);
+            label2.Location = new Point(95, 84);
             label2.Name = "label2";
-            label2.Size = new Size(111, 30);
+            label2.Size = new Size(91, 25);
             label2.TabIndex = 1;
             label2.Text = "Username";
             // 
@@ -61,38 +61,41 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(109, 217);
+            label3.Location = new Point(95, 163);
             label3.Name = "label3";
-            label3.Size = new Size(103, 30);
+            label3.Size = new Size(87, 25);
             label3.TabIndex = 2;
             label3.Text = "Password";
             // 
             // txtName
             // 
             txtName.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            txtName.Location = new Point(109, 145);
+            txtName.Location = new Point(95, 109);
+            txtName.Margin = new Padding(3, 2, 3, 2);
             txtName.Name = "txtName";
-            txtName.Size = new Size(570, 36);
+            txtName.Size = new Size(499, 31);
             txtName.TabIndex = 3;
-            txtName.Text = "thai123";
+            txtName.Text = "thai12";
             // 
             // txtPass
             // 
             txtPass.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            txtPass.Location = new Point(109, 250);
+            txtPass.Location = new Point(95, 188);
+            txtPass.Margin = new Padding(3, 2, 3, 2);
             txtPass.Name = "txtPass";
             txtPass.PasswordChar = '*';
-            txtPass.Size = new Size(570, 36);
+            txtPass.Size = new Size(499, 31);
             txtPass.TabIndex = 4;
-            txtPass.Text = "123456";
+            txtPass.Text = "12345";
             // 
             // loginBtn
             // 
             loginBtn.AutoSize = true;
             loginBtn.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            loginBtn.Location = new Point(549, 316);
+            loginBtn.Location = new Point(480, 237);
+            loginBtn.Margin = new Padding(3, 2, 3, 2);
             loginBtn.Name = "loginBtn";
-            loginBtn.Size = new Size(130, 57);
+            loginBtn.Size = new Size(114, 43);
             loginBtn.TabIndex = 5;
             loginBtn.Text = "Login";
             loginBtn.UseVisualStyleBackColor = true;
@@ -102,9 +105,10 @@
             // 
             signupBtn.AutoSize = true;
             signupBtn.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            signupBtn.Location = new Point(109, 316);
+            signupBtn.Location = new Point(95, 237);
+            signupBtn.Margin = new Padding(3, 2, 3, 2);
             signupBtn.Name = "signupBtn";
-            signupBtn.Size = new Size(130, 57);
+            signupBtn.Size = new Size(114, 43);
             signupBtn.TabIndex = 6;
             signupBtn.Text = "Sign up";
             signupBtn.UseVisualStyleBackColor = true;
@@ -112,9 +116,9 @@
             // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(765, 431);
+            ClientSize = new Size(669, 323);
             Controls.Add(signupBtn);
             Controls.Add(loginBtn);
             Controls.Add(txtPass);
@@ -122,6 +126,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Hotel Booking Management";

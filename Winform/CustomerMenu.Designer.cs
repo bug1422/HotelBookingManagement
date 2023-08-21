@@ -59,7 +59,7 @@
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(260, 787);
+            sidebar.Size = new Size(260, 966);
             sidebar.TabIndex = 2;
             // 
             // panel2
@@ -160,7 +160,7 @@
             logoutBtn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             logoutBtn.Image = Properties.Resources.logout_icon;
             logoutBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            logoutBtn.Location = new Point(0, 3);
+            logoutBtn.Location = new Point(0, 0);
             logoutBtn.Name = "logoutBtn";
             logoutBtn.Size = new Size(257, 144);
             logoutBtn.TabIndex = 6;
@@ -173,7 +173,7 @@
             mainView.Dock = DockStyle.Fill;
             mainView.Location = new Point(260, 0);
             mainView.Name = "mainView";
-            mainView.Size = new Size(843, 787);
+            mainView.Size = new Size(928, 966);
             mainView.TabIndex = 3;
             mainView.Paint += mainView_Paint;
             // 
@@ -182,13 +182,14 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1103, 787);
+            ClientSize = new Size(1188, 966);
             Controls.Add(mainView);
             Controls.Add(sidebar);
             Name = "CustomerMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home";
             WindowState = FormWindowState.Maximized;
+            SizeChanged += CustomerMenu_SizeChanged;
             sidebar.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel1.ResumeLayout(false);

@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Customer\Rooms.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="StaffMenu.cs">
       <SubType>Form</SubType>
     </Compile>

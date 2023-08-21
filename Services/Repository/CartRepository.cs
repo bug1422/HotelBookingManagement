@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services.Repository
 {
-    public class CartRepository : BaseRepository<Carto>
+    public class CartRepository : BaseRepository<Cart>
     {
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Services.Models;
 using Services.Repository;
+using Services.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,8 +22,6 @@ namespace Winform
             account = ac;
             InitializeComponent();
             txtUserName.Text = account.Name;
-            txtPassword.Text = account.Password;
-
         }
 
         private void SettingAccount_Load(object sender, EventArgs e)
@@ -32,28 +31,28 @@ namespace Winform
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (txtUserName.Text.Equals(""))
+            if (txtOld.Text.Equals(""))
             {
-                MessageBox.Show("Username not null");
+                MessageBox.Show("Old password not null.");
             }
-            if (txtPassword.Text.Equals(""))
+            if (txtNew.Text.Equals(""))
             {
-                MessageBox.Show("Username not null");
+                MessageBox.Show("New password not null.");
             }
-            if (txtrepassword.Text.Equals(""))
+            else if(txtNew.Text.Length <= 3)
             {
-                MessageBox.Show("Username not null");
+                MessageBox.Show("New password must be longer than 3 characters.");
             }
             else
             {
-                if (!txtPassword.Text.Equals(txtrepassword.Text))
+                if (account.Password != HashPassword.Hash(txtOld.Text))
                 {
-                    MessageBox.Show("Password and repassword must same");
+                    MessageBox.Show("Old password is incorrect.");
                 }
                 else
                 {
-                    Account a = new Account() { Id = account.Id, Username = txtUserName.Text, Password = txtPassword.Text, Status = account.Status, Roleid = account.Roleid, Phone = account.Phone, Gender = account.Gender, Birthday = account.Birthday, Address = account.Address, Name = account.Name};
-                    _account.Update(a);
+                    account.Password = HashPassword.Hash(txtNew.Text);
+                    _account.Update(account);
                     MessageBox.Show("Saved");
                     DialogResult = DialogResult.OK;
                 }

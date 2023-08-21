@@ -41,14 +41,16 @@ namespace Winform
             }
             else
             {
-                if((username,pass) == GetAccount())
+                if ((username, pass) == GetAccount())
                 {
                     Form f = new StaffMenu();
+                    f.Width = Screen.PrimaryScreen.Bounds.Width;
+                    f.Height = Screen.PrimaryScreen.Bounds.Height;
                     f.ShowDialog();
                     this.Close();
                 }
                 var hashed_pass = HashPassword.Hash(pass);
-                var account = _account.GetAll().FirstOrDefault(p => p.Username == username && p.Password == pass);
+                var account = _account.GetAll().FirstOrDefault(p => p.Username == username && p.Password == hashed_pass);
                 if (account is null)
                 {
                     MessageBox.Show("Wrong username or password.", "Login failed");
@@ -56,15 +58,17 @@ namespace Winform
                 else
                 {
                     Form f = new Form();
-                    if (account.Roleid == 
+                    if (account.Roleid ==
                         _role.GetAll()
                         .FirstOrDefault(p => p.Name == "Customer").Id
                         ) f = new CustomerMenu(account);
-                    if (account.Roleid == 
+                    if (account.Roleid ==
                         _role.GetAll()
                         .FirstOrDefault(p => p.Name == "Admin" || p.Name == "Staff").Id
                         ) f = new StaffMenu();
                     this.Hide();
+                    f.Width = Screen.PrimaryScreen.Bounds.Width;
+                    f.Height = Screen.PrimaryScreen.Bounds.Height;
                     f.ShowDialog();
                     this.Close();
                 }

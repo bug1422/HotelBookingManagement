@@ -81,15 +81,15 @@ namespace Winform
             }
             else
             {
-                string pattern = @"^0\d{2}-\d{3}-\d{4}$";
+                Regex pattern = new Regex("\\+?[1-9][0-9]{7,14}");
                 DateTime.TryParse(dbBirth.Text, out DateTime birth);
                 if (birth >= DateTime.Now)
                 {
                     MessageBox.Show("gender must < date now");
                 }
-                if (!Regex.IsMatch(txtPhone.Text, pattern))
+                if (!pattern.IsMatch(txtPhone.Text))
                 {
-                    MessageBox.Show("must format begin number 0 and fill 10 number: 0XX-XXX-XXXX");
+                    MessageBox.Show("Invalid phone number.");
                 }
                 else
                 {
@@ -111,19 +111,14 @@ namespace Winform
                     bool updated = updateProfile(account, aa.Id);
                     if (updated)
                     {
-                        MessageBox.Show("Update Profille Successfull");
+                        MessageBox.Show("Update profile successfully.");
                     }
                     else
                     {
-                        MessageBox.Show("Update Fail");
+                        MessageBox.Show("Update failed.");
                     }
                 }
             }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Hide();
         }
 
         private void btnSettingAccount_Click(object sender, EventArgs e)
