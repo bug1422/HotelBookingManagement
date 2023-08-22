@@ -43,7 +43,7 @@ namespace Winform
             {
                 if ((username, pass) == GetAccount())
                 {
-                    Form f = new StaffManagement();
+                    Form f = new AdminPage();
                     f.Width = Screen.PrimaryScreen.Bounds.Width;
                     f.Height = Screen.PrimaryScreen.Bounds.Height;
                     f.ShowDialog();
@@ -71,7 +71,7 @@ namespace Winform
                         if (account.Roleid ==
                             _role.GetAll()
                             .FirstOrDefault(p => p.Name == "Admin" || p.Name == "Staff").Id
-                            ) f = new StaffManagement();
+                            ) f = new AdminPage();
                         this.Hide();
                         f.Width = Screen.PrimaryScreen.Bounds.Width;
                         f.Height = Screen.PrimaryScreen.Bounds.Height;

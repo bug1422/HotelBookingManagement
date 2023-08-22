@@ -55,24 +55,27 @@ namespace Winform
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-            Account acc = _account.GetAll().FirstOrDefault(p => p.Id == id);
+            if(e.RowIndex >= 0)
+            {
+                id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                Account acc = _account.GetAll().FirstOrDefault(p => p.Id == id);
 
-            textBox1.Text = acc.Id.ToString();
+                textBox1.Text = acc.Id.ToString();
 
-            textBox2.Text = acc.Username;
+                textBox2.Text = acc.Username;
 
-            comboBox1.SelectedIndex = acc.Status;
+                comboBox1.SelectedIndex = acc.Status;
 
-            textBox3.Text = acc.Phone;
+                textBox3.Text = acc.Phone;
 
-            comboBox2.SelectedIndex = acc.Gender == "Male" ? 0 : 1;
+                comboBox2.SelectedIndex = acc.Gender == "Male" ? 0 : 1;
 
-            dateTimePicker1.Value = Convert.ToDateTime(acc.Birthday.ToString());
+                dateTimePicker1.Value = Convert.ToDateTime(acc.Birthday.ToString());
 
-            textBox4.Text = acc.Address;
+                textBox4.Text = acc.Address;
 
-            textBox5.Text = acc.Name;
+                textBox5.Text = acc.Name;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

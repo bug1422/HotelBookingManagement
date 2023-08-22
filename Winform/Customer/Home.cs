@@ -32,22 +32,12 @@ namespace Winform
             timer1.Start();
             account = ac;
             welcome.Text = "Welcome " + account.Username + ", ready to book?";
-            updateDgv();
-            LoadBooking();
+            updateHotelDgv();
+            updateBookingDgv();
+
         }
 
-        private void LoadBooking()
-        {
-            var bookings = _booking.GetAll().Where(p => p.Customerid == account.Id);
-            if (!bookings.Any())
-            {
-                recent.Text = "You haven't book any room yet. See availble room for more information!";
-            }
-            else
-            {
 
-            }
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -57,17 +47,17 @@ namespace Winform
 
         private void clearBtn_Click(object sender, EventArgs e)
         {
-            searchTxt.Text = "";
+            searchTxt1.Text = "";
         }
 
-        private void updateDgv()
+        private void updateHotelDgv()
         {
             var list = _hotel.GetAll().Include(p => p.Rooms);
-            if (!String.IsNullOrEmpty(searchTxt.Text))
+            if (!String.IsNullOrEmpty(searchTxt1.Text))
             {
                 list = list.Where(p =>
-                p.Name.ToLower().Contains(searchTxt.Text.ToLower()) ||
-                p.Address.ToLower().Contains(searchTxt.Text.ToLower())
+                p.Name.ToLower().Contains(searchTxt1.Text.ToLower()) ||
+                p.Address.ToLower().Contains(searchTxt1.Text.ToLower())
                 ).Include(p => p.Rooms);
             }
             hotelDgv.DataSource = list.Select(p => new
@@ -80,9 +70,27 @@ namespace Winform
             }).OrderBy(p => p.Name).ToList();
         }
 
+        private void updateBookingDgv()
+        {
+            var completed = _booking.GetAll().Where(p => p.Customerid == account.Id && p.Status == 1).Select(p => p.Id).ToList();
+
+            var list = _BookingDetail.GetAll().Include(p => p.Room).Where(p => p.Customerid == account.Id && completed.Contains(p.Bookingid));
+            bookingDgv.DataSource = list.Select(p => new
+            {
+                BookingId = p.Bookingid,
+                RoomId = p.Roomid,
+                Name = "Room " + p.Room.RoomNumber,
+                CheckIn = p.Checindate.ToShortDateString(),
+                CheckOut = p.Checkoutdate.ToShortDateString()
+            }).ToList();
+            bookingDgv.Columns[0].Visible = false;
+            bookingDgv.Columns[1].Visible = false;
+
+        }
+
         private void search_TextChanged(object sender, EventArgs e)
         {
-            updateDgv();
+            updateHotelDgv();
         }
 
         private void recent_KeyPress(object sender, KeyPressEventArgs e)

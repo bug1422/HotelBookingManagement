@@ -35,14 +35,17 @@
             hotelDgv = new DataGridView();
             title = new Label();
             label4 = new Label();
-            recent = new TextBox();
             date = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             time = new Label();
-            searchTxt = new TextBox();
-            clearBtn = new Button();
+            searchTxt1 = new TextBox();
+            clearBtn1 = new Button();
+            bookingDgv = new DataGridView();
+            button1 = new Button();
+            searchTxt2 = new TextBox();
             gbfind.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)hotelDgv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bookingDgv).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -52,7 +55,7 @@
             label1.Font = new Font("Segoe UI", 22F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(127, 50);
+            label1.Size = new Size(102, 41);
             label1.TabIndex = 0;
             label1.Text = "Home";
             // 
@@ -60,9 +63,11 @@
             // 
             gbfind.BackColor = SystemColors.ActiveCaption;
             gbfind.Controls.Add(welcome);
-            gbfind.Location = new Point(87, 147);
+            gbfind.Location = new Point(76, 110);
+            gbfind.Margin = new Padding(3, 2, 3, 2);
             gbfind.Name = "gbfind";
-            gbfind.Size = new Size(1051, 99);
+            gbfind.Padding = new Padding(3, 2, 3, 2);
+            gbfind.Size = new Size(920, 74);
             gbfind.TabIndex = 9;
             gbfind.TabStop = false;
             // 
@@ -71,9 +76,9 @@
             welcome.AutoSize = true;
             welcome.Dock = DockStyle.Top;
             welcome.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point);
-            welcome.Location = new Point(3, 23);
+            welcome.Location = new Point(3, 18);
             welcome.Name = "welcome";
-            welcome.Size = new Size(174, 50);
+            welcome.Size = new Size(142, 41);
             welcome.TabIndex = 15;
             welcome.Text = "Welcome";
             // 
@@ -83,47 +88,39 @@
             hotelDgv.AllowUserToDeleteRows = false;
             hotelDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             hotelDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            hotelDgv.Location = new Point(12, 339);
+            hotelDgv.Location = new Point(10, 254);
+            hotelDgv.Margin = new Padding(3, 2, 3, 2);
             hotelDgv.Name = "hotelDgv";
             hotelDgv.ReadOnly = true;
             hotelDgv.RowHeadersWidth = 51;
             hotelDgv.RowTemplate.Height = 29;
-            hotelDgv.Size = new Size(565, 279);
+            hotelDgv.Size = new Size(494, 209);
             hotelDgv.TabIndex = 10;
             // 
             // title
             // 
             title.AutoSize = true;
-            title.Location = new Point(13, 272);
+            title.Location = new Point(11, 204);
             title.Name = "title";
-            title.Size = new Size(72, 20);
+            title.Size = new Size(57, 15);
             title.TabIndex = 11;
             title.Text = "Hotel List";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(631, 272);
+            label4.Location = new Point(552, 204);
             label4.Name = "label4";
-            label4.Size = new Size(190, 20);
+            label4.Size = new Size(154, 15);
             label4.TabIndex = 12;
-            label4.Text = "Most Recent Room Booked";
-            // 
-            // recent
-            // 
-            recent.Location = new Point(631, 339);
-            recent.Multiline = true;
-            recent.Name = "recent";
-            recent.Size = new Size(591, 279);
-            recent.TabIndex = 13;
-            recent.KeyPress += recent_KeyPress;
+            label4.Text = "Completed Booking History";
             // 
             // date
             // 
             date.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            date.Location = new Point(977, 68);
+            date.Location = new Point(855, 51);
             date.Name = "date";
-            date.Size = new Size(245, 41);
+            date.Size = new Size(214, 31);
             date.TabIndex = 14;
             date.Text = "display date here";
             date.TextAlign = ContentAlignment.MiddleRight;
@@ -135,53 +132,93 @@
             // time
             // 
             time.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            time.Location = new Point(977, 9);
+            time.Location = new Point(855, 7);
             time.Name = "time";
-            time.Size = new Size(245, 41);
+            time.Size = new Size(214, 31);
             time.TabIndex = 15;
             time.Text = "display time here";
             time.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // searchTxt
+            // searchTxt1
             // 
-            searchTxt.Location = new Point(13, 306);
-            searchTxt.Name = "searchTxt";
-            searchTxt.PlaceholderText = "Search hotel name or address here";
-            searchTxt.Size = new Size(273, 27);
-            searchTxt.TabIndex = 16;
-            searchTxt.TextChanged += search_TextChanged;
+            searchTxt1.Location = new Point(11, 230);
+            searchTxt1.Margin = new Padding(3, 2, 3, 2);
+            searchTxt1.Name = "searchTxt1";
+            searchTxt1.PlaceholderText = "Search hotel name or address here";
+            searchTxt1.Size = new Size(239, 23);
+            searchTxt1.TabIndex = 16;
+            searchTxt1.TextChanged += search_TextChanged;
             // 
-            // clearBtn
+            // clearBtn1
             // 
-            clearBtn.Location = new Point(292, 305);
-            clearBtn.Name = "clearBtn";
-            clearBtn.Size = new Size(94, 29);
-            clearBtn.TabIndex = 17;
-            clearBtn.Text = "Clear";
-            clearBtn.UseVisualStyleBackColor = true;
-            clearBtn.Click += clearBtn_Click;
+            clearBtn1.Location = new Point(256, 229);
+            clearBtn1.Margin = new Padding(3, 2, 3, 2);
+            clearBtn1.Name = "clearBtn1";
+            clearBtn1.Size = new Size(82, 22);
+            clearBtn1.TabIndex = 17;
+            clearBtn1.Text = "Clear";
+            clearBtn1.UseVisualStyleBackColor = true;
+            clearBtn1.Click += clearBtn_Click;
+            // 
+            // bookingDgv
+            // 
+            bookingDgv.AllowUserToAddRows = false;
+            bookingDgv.AllowUserToDeleteRows = false;
+            bookingDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            bookingDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            bookingDgv.Location = new Point(552, 254);
+            bookingDgv.Margin = new Padding(3, 2, 3, 2);
+            bookingDgv.Name = "bookingDgv";
+            bookingDgv.ReadOnly = true;
+            bookingDgv.RowHeadersWidth = 51;
+            bookingDgv.RowTemplate.Height = 29;
+            bookingDgv.Size = new Size(494, 209);
+            bookingDgv.TabIndex = 18;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(796, 228);
+            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Name = "button1";
+            button1.Size = new Size(82, 22);
+            button1.TabIndex = 20;
+            button1.Text = "Clear";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // searchTxt2
+            // 
+            searchTxt2.Location = new Point(552, 229);
+            searchTxt2.Margin = new Padding(3, 2, 3, 2);
+            searchTxt2.Name = "searchTxt2";
+            searchTxt2.PlaceholderText = "Search hotel name or address here";
+            searchTxt2.Size = new Size(239, 23);
+            searchTxt2.TabIndex = 19;
             // 
             // Home
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1233, 815);
-            Controls.Add(clearBtn);
-            Controls.Add(searchTxt);
+            ClientSize = new Size(1079, 611);
+            Controls.Add(button1);
+            Controls.Add(searchTxt2);
+            Controls.Add(bookingDgv);
+            Controls.Add(clearBtn1);
+            Controls.Add(searchTxt1);
             Controls.Add(time);
             Controls.Add(date);
-            Controls.Add(recent);
             Controls.Add(label4);
             Controls.Add(title);
             Controls.Add(hotelDgv);
             Controls.Add(gbfind);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Home";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home";
             gbfind.ResumeLayout(false);
             gbfind.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)hotelDgv).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bookingDgv).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -204,7 +241,10 @@
         private Label date;
         private System.Windows.Forms.Timer timer1;
         private Label time;
-        private TextBox searchTxt;
-        private Button clearBtn;
+        private TextBox searchTxt1;
+        private Button clearBtn1;
+        private DataGridView bookingDgv;
+        private Button button1;
+        private TextBox searchTxt2;
     }
 }

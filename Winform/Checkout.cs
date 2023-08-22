@@ -21,6 +21,7 @@ namespace Winform
         private HotelRepository _hotel = new HotelRepository();
         private RoomRepository _room = new RoomRepository();
         private AccountRepository _account = new AccountRepository();
+        private PaymentRepository _payment = new PaymentRepository();
         private BookingRepository _booking = new BookingRepository();
         private BookingDetailRepository _bookingdetail = new BookingDetailRepository();
         private double total = 0;
@@ -128,7 +129,7 @@ namespace Winform
                             Hotelid = hotel.Id,
                             Bookingdate = DateTime.Now.Date,
                             Totalprice = totalPrice,
-                            Status = checkBox1.Checked ? 1 : 0,
+                            Status = 1,
                             Reason = "",
                             Phone = account.Phone
                         };
@@ -141,6 +142,14 @@ namespace Winform
                     try
                     {
                         var newid = _booking.GetAll().OrderBy(f => f.Id).LastOrDefault().Id;
+                        Payment payment = new Payment()
+                        {
+                            Bookingid = newid,
+                            Bycash = checkBox1.Checked ? 1 : 0,
+                            Customerid = account.Id,
+                            Transactiondate = DateTime.Now.Date
+                        };
+                        _payment.Add(payment);
                         foreach (var room in rooms)
                         {
                             var obj = _room.GetAll().FirstOrDefault(p => p.Id == room.Id);
